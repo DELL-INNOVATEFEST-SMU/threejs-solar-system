@@ -6,6 +6,7 @@ import { OrbitControls } from "three-stdlib";
 import { useSelectedPlanet } from "../../contexts/SelectedPlanetContext";
 import { usePlanetPositions } from "../../contexts/PlanetPositionsContext";
 import { useCameraContext } from "../../contexts/CameraContext";
+import { useChat } from "../../contexts/ChatContext";
 import { useCameraSetup } from "../../hooks/useCameraSetup";
 
 export default function CameraController() {
@@ -20,6 +21,7 @@ export default function CameraController() {
   const [selectedPlanet] = useSelectedPlanet();
   const { planetPositions } = usePlanetPositions();
   const { cameraState, setCameraState } = useCameraContext();
+  const { setPlanetContext } = useChat();
   const homePosition = useRef(new Vector3(11, 1, 1)).current;
   const lerpFactor = 0.015;
   const cameraPositionEpsilon = 0.1;
@@ -73,6 +75,7 @@ export default function CameraController() {
               introAnimationCompleted.current = true;
               camera.position.copy(homePosition);
               setCameraState("FREE");
+              setPlanetContext(null); // Clear planet context when returning to free view
             }
           }
           break;
@@ -94,6 +97,7 @@ export default function CameraController() {
             controls.maxDistance = Infinity;
             controls.update();
             setCameraState("FREE");
+            setPlanetContext(null); // Clear planet context when returning to free view
           }
           break;
 

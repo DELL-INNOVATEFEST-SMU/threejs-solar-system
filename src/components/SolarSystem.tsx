@@ -15,6 +15,7 @@ import PlanetDetail from "./ui/PlanetDetail";
 import ControlMenu from "./ui/ControlMenu/ControlMenu";
 import SceneLighting from "./SceneLighting";
 import IntroText from "./ui/IntroText";
+import CompressedChat from "./ui/CompressedChat";
 
 export default function SolarSystem() {
   const [planetOrbitProgress, setPlanetOrbitProgress] = useState<{
@@ -63,6 +64,7 @@ export default function SolarSystem() {
       </AnimatePresence>
       <ControlMenu />
       <IntroText />
+      <CompressedChat />
     </>
   );
 }
