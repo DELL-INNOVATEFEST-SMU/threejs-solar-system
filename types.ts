@@ -14,7 +14,7 @@ export interface PlanetData {
     wobble?: boolean;
     rings?: RingsData;
     orbitalPosition?: Vector3;
-    displayStats: DisplayStats;
+    displayDescription: DisplayDescription;
 }
 
 export interface RingsData {
@@ -26,16 +26,7 @@ export interface MoonData {
     name: string;
 }
 
-export interface DisplayStats {
+export interface DisplayDescription {
     classification: string;
-    orbitalPeriod: number;
-    meanDistanceFromSun: number;
-    accurateRadius: number;
-    mass: number;
-    surfaceGravity: number;
-    rotationPeriod: number;
-    axialTilt: number;
-    numberOfMoons: number;
-    atmosphericComposition: string;
-    surfaceTemp: string;
+    description: string;
 }
