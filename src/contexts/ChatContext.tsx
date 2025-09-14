@@ -112,7 +112,7 @@ const commanderPersonas: Record<string, CommanderPersona> = {
 export const ChatProvider: React.FC<ChatProviderProps> = ({ children }) => {
   const [chatState, setChatState] = useState<ChatState>({
     messages: [],
-    isVisible: true,
+    isVisible: false, // Start hidden, show button instead
     isTyping: false,
     currentPlanetContext: null,
     inputValue: "",
@@ -145,7 +145,7 @@ export const ChatProvider: React.FC<ChatProviderProps> = ({ children }) => {
 
   const sendMessage = useCallback(
     async (content: string) => {
-      if (!content.trim() || !chatState.currentPlanetContext) return;
+      if (!content.trim()) return;
 
       const userMessage: ChatMessage = {
         id: Date.now().toString(),
@@ -228,14 +228,30 @@ export const ChatProvider: React.FC<ChatProviderProps> = ({ children }) => {
           currentPlanetContext: planetName,
           messages: [...prev.messages, welcomeMessage],
         }));
-      } else if (!planetName) {
+      } else if (!planetName && chatState.currentPlanetContext) {
+        // Clear planet context when returning to main view
         setChatState((prev) => ({
           ...prev,
           currentPlanetContext: null,
         }));
+      } else if (!planetName && chatState.messages.length === 0) {
+        // Add general welcome message for main page
+        const generalWelcomeMessage: ChatMessage = {
+          id: Date.now().toString(),
+          sender: "commander",
+          content:
+            "Commander Sam H. here, ready for your orders. Select a planet to begin our mission briefing, or just chat with me about space exploration!",
+          timestamp: new Date(),
+          planetContext: null,
+        };
+
+        setChatState((prev) => ({
+          ...prev,
+          messages: [...prev.messages, generalWelcomeMessage],
+        }));
       }
     },
-    [chatState.currentPlanetContext]
+    [chatState.currentPlanetContext, chatState.messages.length]
   );
 
   const setInputValue = useCallback((value: string) => {

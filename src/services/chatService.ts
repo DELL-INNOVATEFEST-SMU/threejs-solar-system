@@ -20,7 +20,7 @@ export class ChatService {
 
   async generateResponse(
     userMessage: string,
-    planetContext: string,
+    planetContext: string | null,
     persona: CommanderPersona,
     conversationHistory: Array<{ role: string; content: string }> = []
   ): Promise<string> {
@@ -36,11 +36,24 @@ export class ChatService {
 
   private async generateMockResponse(
     userMessage: string,
-    planetContext: string,
+    planetContext: string | null,
     persona: CommanderPersona
   ): Promise<string> {
     // Simulate API delay
     await new Promise(resolve => setTimeout(resolve, 1000 + Math.random() * 2000));
+
+    // General responses when no planet is selected
+    if (!planetContext) {
+      const generalResponses = [
+        "Commander Sam H. here! I'm ready to assist with any space exploration questions you might have.",
+        "The cosmos is vast and full of mysteries. What aspect of space exploration interests you most?",
+        "I've been exploring the solar system for years. What would you like to know about our cosmic neighborhood?",
+        "Every planet has its own story to tell. Which one would you like to learn about?",
+        "Space is the final frontier, and I'm here to guide you through it. What's on your mind?",
+        "The universe is full of wonders waiting to be discovered. What shall we explore together?"
+      ];
+      return generalResponses[Math.floor(Math.random() * generalResponses.length)];
+    }
 
     const responses = {
       Mercury: [

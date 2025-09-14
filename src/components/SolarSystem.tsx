@@ -16,6 +16,7 @@ import ControlMenu from "./ui/ControlMenu/ControlMenu";
 import SceneLighting from "./SceneLighting";
 import IntroText from "./ui/IntroText";
 import CompressedChat from "./ui/CompressedChat";
+import ChatButton from "./ui/ChatButton";
 
 export default function SolarSystem() {
   const [planetOrbitProgress, setPlanetOrbitProgress] = useState<{
@@ -65,6 +66,7 @@ export default function SolarSystem() {
       <ControlMenu />
       <IntroText />
       <CompressedChat />
+      <ChatButton />
     </>
   );
 }

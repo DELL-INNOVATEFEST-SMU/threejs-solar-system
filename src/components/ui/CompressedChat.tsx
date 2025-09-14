@@ -35,9 +35,7 @@ const CompressedChat: React.FC = () => {
     }
   };
 
-  const shouldShowChat =
-    chatState.isVisible &&
-    (cameraState === "FREE" || cameraState === "DETAIL_VIEW");
+  const shouldShowChat = chatState.isVisible;
 
   const variants = {
     hidden: { x: "100%", opacity: 0 },
